@@ -1,11 +1,13 @@
 [package]
-name = "basic"
+name = "output"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
 async-trait.workspace = true
-cata = { path = "../.." }
-clap = { workspace = true, features = ["derive", "env"] }
+cata = { version = "0.1.0", path = "../.." }
+clap.workspace = true
 eyre.workspace = true
+serde.workspace = true
+tabled.workspace = true
 tokio.workspace = true
