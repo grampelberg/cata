@@ -6,6 +6,15 @@ description = "toolkit for building large CLIs"
 documentation = "https://docs.rs/cata"
 edition = "2021"
 
-[dependencies]
+[workspace.dependencies]
 async-trait = "0.1.81"
+clap = { version = "4.5.7", features = ["derive", "env"] }
 eyre = "0.6.12"
+
+[dependencies]
+async-trait = { workspace = true }
+cata-derive = { path = "derive" }
+eyre = { workspace = true }
+
+[workspace]
+members = ["derive"]

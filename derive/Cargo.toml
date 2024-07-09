@@ -1,0 +1,17 @@
+[package]
+name = "cata-derive"
+version = "0.1.0"
+authors = ["Thomas Rampelberg <thomas@saunter.org>"]
+description = "derive macros to support cata"
+edition = "2021"
+
+[dependencies]
+async-trait = { workspace = true }
+clap = { workspace = true }
+eyre = { workspace = true }
+proc-macro2 = "1.0.86"
+quote = "1.0.36"
+syn = { version = "2.0.68", features = ["visit"] }
+
+[lib]
+proc-macro = true
