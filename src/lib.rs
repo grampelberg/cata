@@ -1,6 +1,7 @@
 #![deny(unused_crate_dependencies)]
 
 pub mod command;
+pub mod file;
 pub mod output;
 
 pub use cata_derive::Container;
