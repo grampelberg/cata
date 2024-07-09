@@ -28,12 +28,12 @@ fn get_field_name(data: &syn::DataStruct, attr_name: &str) -> Option<Ident> {
 fn struct_impl(name: &Ident, data: &syn::DataStruct) -> Result<TokenStream, syn::Error> {
     let next_impl = match get_field_name(data, "command") {
         Some(field_name) => quote! {
-            fn next(&self) -> Option<&dyn crate::command::Command> {
+            fn next(&self) -> Option<&dyn ::cata::command::Command> {
                 self.#field_name.next()
             }
         },
         None => quote! {
-             fn next(&self) -> Option<&dyn crate::command::Command> {
+             fn next(&self) -> Option<&dyn ::cata::command::Command> {
                  None
              }
         },
@@ -41,7 +41,7 @@ fn struct_impl(name: &Ident, data: &syn::DataStruct) -> Result<TokenStream, syn:
 
     Ok(quote! {
         #[automatically_derived]
-        impl crate::command::Container for #name {
+        impl ::cata::command::Container for #name {
             #next_impl
         }
     })
@@ -72,8 +72,8 @@ fn enum_impl(name: &Ident, data: &syn::DataEnum) -> Result<TokenStream, syn::Err
 
     Ok(quote! {
         #[automatically_derived]
-        impl crate::command::Container for #name {
-            fn next(&self) -> Option<&dyn crate::command::Command> {
+        impl ::cata::command::Container for #name {
+            fn next(&self) -> Option<&dyn ::cata::command::Command> {
                 match self {
                     #(Self::#commands(cmd) => Some(cmd),)*
                 }

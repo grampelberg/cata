@@ -1,5 +1,3 @@
-use std::fmt::Debug;
-
 use eyre::Result;
 
 /// The base structure for commands.
@@ -20,7 +18,7 @@ use eyre::Result;
 ///
 /// [`Parser`]: clap::Parser
 #[async_trait::async_trait]
-pub trait Command: Debug + Send + Sync + Container {
+pub trait Command: Send + Sync + Container {
     /// Performs any setup required before the command is run.
     fn pre_run(&self) -> Result<()> {
         Ok(())
@@ -39,8 +37,8 @@ pub trait Command: Debug + Send + Sync + Container {
 
 /// Allows commands to optionally contain subcommands.
 ///
-/// The runtime expects commands to have implemented this trait to discover if
-/// it needs to recurse into a subcommand. While it is possible to implement
+/// `cata::execute` expects commands to have implemented this trait to discover
+/// if it needs to recurse into a subcommand. While it is possible to implement
 /// this yourself, it is recommended that `#[derive(Command)]` is used to
 /// automatically generate the code required to switch between subcommand enums.
 pub trait Container {

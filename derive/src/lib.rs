@@ -24,11 +24,11 @@ use proc_macro::TokenStream;
 ///
 /// #[derive(Subcommand, Container)]
 /// pub enum RootCmd {
-///   Subcommand(Subcommand)
+///   Child(Child)
 /// }
 ///
 /// #[derive(Parser, Container)]
-/// pub struct Subcommand {}
+/// pub struct Child {}
 /// ```
 ///
 /// [`Container`]: cata::command::Container
