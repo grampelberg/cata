@@ -7,3 +7,5 @@ documentation = "https://docs.rs/cata"
 edition = "2021"
 
 [dependencies]
+async-trait = "0.1.81"
+eyre = "0.6.12"
