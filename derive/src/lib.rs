@@ -1,15 +1,4 @@
-mod container;
-
-use proc_macro::TokenStream;
-
-/// Derive the [`Container`] trait for structs and enums.
-///
-/// Looks for clap's `#[command]` in structs to generate a `next()` that can
-/// dispatch to the next command which was initially parsed. Any structs without
-/// `#[command]` will have a `next()` that returns `None`.
-///
-/// For commands with subcommands, the enum must also have
-/// `#[derive(Container)]`.
+/// A procedural macro for deriving the [`Container`] trait.
 ///
 /// # Examples
 /// ```
@@ -30,6 +19,18 @@ use proc_macro::TokenStream;
 /// #[derive(Parser, Container)]
 /// pub struct Child {}
 /// ```
+mod container;
+
+use proc_macro::TokenStream;
+
+/// Derive the [`Container`] trait for structs and enums.
+///
+/// Looks for clap's `#[command]` in structs to generate a `next()` that can
+/// dispatch to the next command which was initially parsed. Any structs without
+/// `#[command]` will have a `next()` that returns `None`.
+///
+/// For commands with subcommands, the enum must also have
+/// `#[derive(Container)]`.
 ///
 /// [`Container`]: cata::command::Container
 #[proc_macro_derive(Container)]
