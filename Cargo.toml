@@ -1,0 +1,9 @@
+[package]
+name = "cata"
+version = "0.1.0"
+authors = ["Thomas Rampelberg <thomas@saunter.org>"]
+description = "toolkit for building large CLIs"
+documentation = "https://docs.rs/cata"
+edition = "2021"
+
+[dependencies]
