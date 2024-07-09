@@ -1,0 +1,11 @@
+[package]
+name = "basic"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+async-trait.workspace = true
+cata = { path = "../.." }
+clap = { workspace = true, features = ["derive", "env"] }
+eyre.workspace = true
+tokio = { version = "1.38.0", features = ["full"] }
