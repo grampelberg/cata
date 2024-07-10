@@ -1,6 +1,4 @@
 /// Procedural macros to derive traits for CLI construction.
-///
-/// # Container
 mod container;
 mod file;
 
@@ -39,14 +37,14 @@ use proc_macro::TokenStream;
 /// [`Container`]: cata::command::Container
 #[proc_macro_derive(Container)]
 pub fn derive_container(input: TokenStream) -> TokenStream {
-    container::derive_container(syn::parse_macro_input!(input))
+    container::derive(syn::parse_macro_input!(input))
         .unwrap_or_else(|err| err.to_compile_error())
         .into()
 }
 
 /// Implement value parsing for arbitrary structs deserialized from files.
 ///
-/// Implements the [`ValueParserFactory`]` trait for struct which uses the
+/// Implements the [`ValueParserFactory`] trait for struct which uses the
 /// [`File<T>`] value parser to deserialize a path passed in as an argument into
 /// the provided struct.
 ///
@@ -70,7 +68,5 @@ pub fn derive_container(input: TokenStream) -> TokenStream {
 /// [`ValueParserFactory`]: clap::builder::ValueParserFactory
 #[proc_macro_derive(File)]
 pub fn derive_file(input: TokenStream) -> TokenStream {
-    file::derive(syn::parse_macro_input!(input))
-        .unwrap_or_else(|err| err.to_compile_error())
-        .into()
+    file::derive(&syn::parse_macro_input!(input)).into()
 }

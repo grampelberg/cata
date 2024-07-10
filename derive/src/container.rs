@@ -10,8 +10,8 @@ use syn::visit::{self, Visit};
 /// having multiple commands and is naive about whether that is a subcommand or
 /// not currently.
 fn get_field_name(data: &syn::DataStruct, attr_name: &str) -> Option<Ident> {
-    for field in data.fields.iter() {
-        for attr in field.attrs.iter() {
+    for field in &data.fields {
+        for attr in &field.attrs {
             if attr.path().is_ident(attr_name) {
                 return field.ident.clone();
             }
@@ -25,7 +25,8 @@ fn get_field_name(data: &syn::DataStruct, attr_name: &str) -> Option<Ident> {
 ///
 /// Looks for `#[command]` in a struct and on the first hit generates an
 /// implementation that calls into the `next()` field of that enum.
-fn struct_impl(name: &Ident, data: &syn::DataStruct) -> Result<TokenStream, syn::Error> {
+fn struct_impl(name: &Ident, data: &syn::DataStruct) -> TokenStream {
+    #[allow(clippy::single_match_else)]
     let next_impl = match get_field_name(data, "command") {
         Some(field_name) => quote! {
             fn next(&self) -> Option<&dyn ::cata::command::Command> {
@@ -39,12 +40,12 @@ fn struct_impl(name: &Ident, data: &syn::DataStruct) -> Result<TokenStream, syn:
         },
     };
 
-    Ok(quote! {
+    quote! {
         #[automatically_derived]
         impl ::cata::command::Container for #name {
             #next_impl
         }
-    })
+    }
 }
 
 /// Accumulate all the variants in an enum.
@@ -64,13 +65,13 @@ impl<'ast> Visit<'ast> for UnnamedTypes<'ast> {
 }
 
 /// Dispatch to the correct command in the enum via variants.
-fn enum_impl(name: &Ident, data: &syn::DataEnum) -> Result<TokenStream, syn::Error> {
+fn enum_impl(name: &Ident, data: &syn::DataEnum) -> TokenStream {
     let mut visitor = UnnamedTypes::default();
     visitor.visit_data_enum(data);
 
     let commands = visitor.commands;
 
-    Ok(quote! {
+    quote! {
         #[automatically_derived]
         impl ::cata::command::Container for #name {
             fn next(&self) -> Option<&dyn ::cata::command::Command> {
@@ -79,7 +80,7 @@ fn enum_impl(name: &Ident, data: &syn::DataEnum) -> Result<TokenStream, syn::Err
                 }
             }
         }
-    })
+    }
 }
 
 /// Generate implementation of the `Container` trait for either a struct or an
@@ -90,13 +91,13 @@ fn enum_impl(name: &Ident, data: &syn::DataEnum) -> Result<TokenStream, syn::Err
 /// correct command in the enum. Instead, a simple implementation in the struct
 /// is generated pointing to `next()` on the enum which ends up doing the heavy
 /// lifting.
-pub fn derive_container(input: syn::DeriveInput) -> Result<TokenStream, syn::Error> {
+pub fn derive(input: syn::DeriveInput) -> Result<TokenStream, syn::Error> {
     let name = &input.ident;
 
     match input.data {
-        syn::Data::Struct(ref data) => struct_impl(name, data),
-        syn::Data::Enum(ref data) => enum_impl(name, data),
-        _ => Err(syn::Error::new_spanned(
+        syn::Data::Struct(ref data) => Ok(struct_impl(name, data)),
+        syn::Data::Enum(ref data) => Ok(enum_impl(name, data)),
+        syn::Data::Union(_) => Err(syn::Error::new_spanned(
             input,
             "Command can only be derived for structs or enums",
         )),

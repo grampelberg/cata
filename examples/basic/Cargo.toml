@@ -1,11 +1,20 @@
 [package]
 name = "basic"
-version = "0.1.0"
-edition = "2021"
+description = "basic example of using cata"
+version.workspace = true
+authors.workspace = true
+
+documentation.workspace = true
+license-file.workspace = true
+edition.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
 
 [dependencies]
 async-trait.workspace = true
 cata = { path = "../.." }
 clap = { workspace = true, features = ["derive", "env"] }
 eyre.workspace = true
+lazy_static = "1.5.0"
 tokio.workspace = true

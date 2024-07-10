@@ -1,4 +1,3 @@
-use eyre::Result;
 use proc_macro2::TokenStream;
 use quote::quote;
 
@@ -7,10 +6,10 @@ use quote::quote;
 /// This relies on the `TypedValueParser` implementation for [`File`].
 ///
 /// [`File`]: cata::file::File<T>
-pub fn derive(input: syn::DeriveInput) -> Result<TokenStream, syn::Error> {
+pub fn derive(input: &syn::DeriveInput) -> TokenStream {
     let name = &input.ident;
 
-    Ok(quote! {
+    quote! {
         #[automatically_derived]
         impl ::clap::builder::ValueParserFactory for #name {
             type Parser = ::cata::file::File<#name>;
@@ -19,5 +18,5 @@ pub fn derive(input: syn::DeriveInput) -> Result<TokenStream, syn::Error> {
                 ::cata::file::File::default()
             }
         }
-    })
+    }
 }

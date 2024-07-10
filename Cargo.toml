@@ -1,14 +1,28 @@
 [package]
 name = "cata"
+version.workspace = true
+authors.workspace = true
+description = "toolkit for building large CLIs"
+documentation.workspace = true
+license-file.workspace = true
+edition.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[workspace.package]
 version = "0.1.0"
 authors = ["Thomas Rampelberg <thomas@saunter.org>"]
-description = "toolkit for building large CLIs"
 documentation = "https://docs.rs/cata"
 edition = "2021"
+license-file = "LICENSE"
+repository = "https://github.com/grampelberg/cata"
+keywords = ["cli"]
+categories = ["Command line utilities"]
 
 [workspace.dependencies]
 async-trait = "0.1.81"
-clap = { version = "4.5.7", features = ["derive", "env"] }
+clap = { version = "4.5.9", features = ["derive", "env"] }
 eyre = "0.6.12"
 serde = { version = "1.0.204", features = ["derive"] }
 tabled = "0.15.0"

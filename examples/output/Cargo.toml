@@ -1,8 +1,15 @@
 [package]
 name = "output"
-version = "0.1.0"
-edition = "2021"
+description = "output example of using cata"
+version.workspace = true
+authors.workspace = true
 
+documentation.workspace = true
+license-file.workspace = true
+edition.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
 [dependencies]
 async-trait.workspace = true
 cata = { version = "0.1.0", path = "../.." }
