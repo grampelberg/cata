@@ -1,3 +1,40 @@
+//! Lifecycle hooks for arbitrarily deep trees of clap commands.
+//!
+//! This module provides a way for clap commands to recursively descend into
+//! children while executing lifecycle hooks at each level. This is useful for
+//! building complex CLI tools where you don't want to define the entire
+//! structure statically at the root level. Definitions are instead delegated to
+//! the commands themselves at each level.
+//!
+//! # Examples
+//!
+//! See [examples/basic] for a more detailed example.
+//!
+//! ```
+//! use cata::Container;
+//! use clap::{Parser, Subcommand};
+//!
+//! #[derive(Parser, Container)]
+//! pub struct Root {
+//!   #[command(subcommand)]
+//!   pub cmd: RootCmd,
+//! }
+//!
+//! #[derive(Subcommand, Container)]
+//! pub enum RootCmd {
+//!   Child(Child)
+//! }
+//!
+//! #[derive(Parser, Container)]
+//! pub struct Child {}
+//!
+//! #[tokio:main]
+//! async fn main() -> Result<()> {
+//!   cata::execute(&Root::parse()).await
+//! }
+//! ```
+//!
+//! [examples-file]: ../examples/basic/src/main.rs
 use eyre::Result;
 
 /// The base structure for commands.

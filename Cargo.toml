@@ -44,13 +44,18 @@ tabled.workspace = true
 [workspace]
 members = ["derive", "examples/basic", "examples/file", "examples/output"]
 
+[lints]
+workspace = true
+
 [workspace.lints.rust]
+missing_docs = "warn"
 keyword-idents = "warn"
 let-underscore = "warn"
 rust-2024-compatibility = "warn"
 unused_crate_dependencies = "warn"
 
 [workspace.lints.clippy]
+multiple_crate_versions = "warn"
 cargo = "warn"
 complexity = "warn"
 correctness = "warn"
@@ -58,3 +63,4 @@ pedantic = "warn"
 perf = "warn"
 style = "warn"
 suspicious = "warn"
+missing_errors_doc = "allow"

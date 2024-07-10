@@ -1,3 +1,15 @@
+//! cata(lyst) for building complex CLI tools.
+//!
+//! This crate provides a collection of utilities that make it easier to build
+//! CLI tools.
+//!
+//! - [`command`]: recursively traverse a tree of clap commands and subcommands
+//!   calling lifecycle hooks at each level.
+//! - [`file`]: derive `clap::value_parser` for deserializing values from files.
+//!   Detects the file format from the extension and currently supports JSON in
+//!   addition to YAML.
+//! - [`output`]: structured output for commands. Users can choose the output
+//!   format they would like, currently supporting JSON, YAML and pretty.
 pub mod command;
 pub mod file;
 pub mod output;

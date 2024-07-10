@@ -1,45 +1,45 @@
-/// Structured output for commands.
-///
-/// When implemented, users of a CLI can choose what type of structured output
-/// they would like from the CLI. JSON, YAML and pretty are currently supported.
-/// This can be added as part of a root command and then any subcommands are
-/// able to output correctly.
-///
-/// Any type being output is required to implement [`serde::Serialize`] in
-/// addition to [`tabled::Tabled`]. `Tabled` requires that every field
-/// implements `Display`. The [`cata::output::tabled`] module provides some
-/// helpers.
-///
-/// # Examples
-///
-/// ```
-/// use cata::{Command, output::Format};
-///
-/// #[derive(serde::Serialize, tabled::Tabled)]
-/// struct MyType {
-///    field: String,
-/// }
-///
-/// #[derive(clap::Parser, cata::Container)]
-/// struct Cmd {
-///   #[arg(short, long, value_enum)]
-///   output: Format,
-/// }
-///
-/// #[async_trait::async_trait]
-/// impl Command for Cmd {
-///   async fn run(&self) -> eyre::Result<()> {
-///     self.output.item(&MyType { field: "value".into() })
-///   }
-/// }
-/// ```
-///
-/// For a more complete example, see [examples/output].
-///
-/// [`serde::Serialize`]: serde::Serialize
-/// [`tabled::Tabled`]: tabled::Tabled
-/// [`cata::output::tabled`]: cata::output::tabled
-/// [examples/output]: ../examples/output
+//! Structured output for commands.
+//!
+//! When implemented, users of a CLI can choose what type of structured output
+//! they would like from the CLI. JSON, YAML and pretty are currently supported.
+//! This can be added as part of a root command and then any subcommands are
+//! able to output correctly.
+//!
+//! Any type being output is required to implement [`serde::Serialize`] in
+//! addition to [`tabled::Tabled`]. `Tabled` requires that every field
+//! implements `Display`. The [`cata::output::tabled`] module provides some
+//! helpers.
+//!
+//! # Examples
+//! For a more complete example, see [examples/output].
+//!
+//! ```
+//! use cata::{Command, output::Format};
+//!
+//! #[derive(serde::Serialize, tabled::Tabled)]
+//! struct MyType {
+//!    field: String,
+//! }
+//!
+//! #[derive(clap::Parser, cata::Container)]
+//! struct Cmd {
+//!   #[arg(short, long, value_enum)]
+//!   output: Format,
+//! }
+//!
+//! #[async_trait::async_trait]
+//! impl Command for Cmd {
+//!   async fn run(&self) -> eyre::Result<()> {
+//!     self.output.item(&MyType { field: "value".into() })
+//!   }
+//! }
+//! ```
+//!
+//!
+//! [`serde::Serialize`]: serde::Serialize
+//! [`tabled::Tabled`]: tabled::Tabled
+//! [`cata::output::tabled`]: cata::output::tabled
+//! [examples/output]: ../examples/output/src/main.rs
 pub mod tabled;
 
 use ::tabled::{Table, Tabled};
@@ -54,8 +54,12 @@ use serde::Serialize;
 #[serde(rename_all = "kebab-case")]
 pub enum Format {
     #[default]
+    /// Pretty print the output, results in a table format. Single items are
+    /// tables with one row.
     Pretty,
+    /// Prints the output as JSON.
     Json,
+    /// Prints the output as YAML.
     Yaml,
 }
 

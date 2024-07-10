@@ -1,40 +1,45 @@
+//! Consume input into a struct automatically.
+//!
+//! Takes a user provided path, reads the file and deserializes it into the
+//! provided struct. Does file extension detection to understand the file's
+//! format. Currently supports JSON and YAML.
+//!
+//! # Examples
+//!
+//! See [examples/file] for a more detailed example.
+//!
+//! ```
+//! use cata::{Container, File};
+//!
+//! #[derive(clap::Parser, Container)]
+//! struct Cmd {
+//!   input: File<MyType>,
+//! }
+//!
+//! #[derive(Clone, Debug, serde::Deserialize, File)]
+//! struct MyType {
+//!   field: String,
+//! }
+//!
+//! #[async_trait::async_trait]
+//! impl cata::Command for Cmd {
+//!   async fn run(&self) -> eyre::Result<()> {
+//!     println!("input: {:#?}", self.input);
+//!     Ok(())
+//!   }
+//! }
+//! ```
+//!
+//! [examples/file]: ../examples/file/src/main.rs
 use clap::{builder::TypedValueParser, error::ErrorKind};
 use eyre::{eyre, Result};
 use serde::de::DeserializeOwned;
 
-/// Consume input into a struct automatically.
+/// Implementation of `TypedValueParser` for deserializing a file into a struct.
 ///
-/// Takes a user provided path, reads the file and deserializes it into the
-/// provided struct. Does file extension detection to understand the file's
-/// format. Currently supports JSON and YAML.
-///
-/// # Examples
-///
-/// See [examples/file] for a more detailed example.
-///
-/// ```
-/// use cata::file::File;
-///
-/// #[derive(clap::Parser, cata::Container)]
-/// struct Cmd {
-///   input: File<MyType>,
-/// }
-///
-/// #[derive(Clone, Debug, serde::Deserialize)]
-/// struct MyType {
-///   field: String,
-/// }
-///
-/// #[async_trait::async_trait]
-/// impl cata::Command for Cmd {
-///   async fn run(&self) -> eyre::Result<()> {
-///     println!("input: {:#?}", self.input);
-///     Ok(())
-///   }
-/// }
-/// ```
-///
-/// [examples/file]: ../examples/file
+/// This is not meant to be used directly, see the `File` derive macro for how
+/// to use it. The `ValueParserFactory` trait is automatically generated for
+/// structs using that macro and the implementation uses this implementation.
 #[derive(Debug, Clone)]
 pub struct File<T> {
     _p: std::marker::PhantomData<T>,

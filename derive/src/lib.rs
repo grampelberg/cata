@@ -1,4 +1,9 @@
-/// Procedural macros to derive traits for CLI construction.
+//! Procedural macros to derive traits for CLI construction.
+//!
+//! - [`Container`] for dispatching enums to subcommands.
+//! - [`File`] for deserializing values from files, implementing clap's
+//!   `value_parser`.
+
 mod container;
 mod file;
 

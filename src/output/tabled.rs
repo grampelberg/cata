@@ -1,3 +1,5 @@
+//! A collection of utilities that provide Display implementations for tables
+//! outputs.
 use std::fmt::{self, Display};
 
 use serde::{de::Deserializer, Deserialize, Serialize};
@@ -17,7 +19,7 @@ where
 {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match &self.0 {
-            Some(value) => write!(f, "{}", value),
+            Some(value) => write!(f, "{value}"),
             None => write!(f, ""),
         }
     }
@@ -68,7 +70,7 @@ where
 {
     let display = &mut value
         .iter()
-        .map(|v| format!("{}", v))
+        .map(|v| format!("{v}"))
         .collect::<Vec<String>>();
 
     display.sort();
