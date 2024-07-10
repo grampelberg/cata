@@ -1,8 +1,5 @@
-use clap::{
-    builder::{TypedValueParser, ValueParserFactory},
-    error::ErrorKind,
-};
-use eyre::{eyre, Result, WrapErr};
+use clap::{builder::TypedValueParser, error::ErrorKind};
+use eyre::{eyre, Result};
 use serde::de::DeserializeOwned;
 
 /// Consume input into a struct automatically.
@@ -12,6 +9,8 @@ use serde::de::DeserializeOwned;
 /// format. Currently supports JSON and YAML.
 ///
 /// # Examples
+///
+/// See [examples/file] for a more detailed example.
 ///
 /// ```
 /// use cata::file::File;
@@ -34,29 +33,18 @@ use serde::de::DeserializeOwned;
 ///   }
 /// }
 /// ```
+///
+/// [examples/file]: ../examples/file
 #[derive(Debug, Clone)]
-pub enum File<T> {
-    None,
-    Some(T),
+pub struct File<T> {
+    _p: std::marker::PhantomData<T>,
 }
 
-impl<T> Default for File<T>
-where
-    T: Sync,
-{
+impl<T> Default for File<T> {
     fn default() -> Self {
-        Self::None
-    }
-}
-
-impl<T> ValueParserFactory for File<T>
-where
-    T: Sync,
-{
-    type Parser = File<T>;
-
-    fn value_parser() -> Self {
-        Self::default()
+        Self {
+            _p: std::marker::PhantomData,
+        }
     }
 }
 
@@ -64,16 +52,26 @@ impl<T> TypedValueParser for File<T>
 where
     T: DeserializeOwned + Sync + Send + Clone + 'static,
 {
-    type Value = File<T>;
+    type Value = T;
 
     fn parse_ref(
         &self,
         cmd: &clap::Command,
-        _: Option<&clap::Arg>,
+        arg: Option<&clap::Arg>,
         value: &std::ffi::OsStr,
     ) -> Result<Self::Value, clap::Error> {
         let path = std::path::PathBuf::from(value);
-        let raw = std::fs::read_to_string(&path)?;
+        let raw = std::fs::read_to_string(&path).map_err(|e| {
+            cmd.clone().error(
+                ErrorKind::InvalidValue,
+                format!(
+                    "Could not read file {} for {}: {}",
+                    value.to_str().unwrap(),
+                    arg.unwrap(),
+                    e
+                ),
+            )
+        })?;
 
         let content: Result<T> = match mime_guess::from_path(path.clone())
             .first_or_text_plain()
@@ -81,16 +79,24 @@ where
             .as_str()
         {
             "x-yaml" => serde_path_to_error::deserialize(serde_yaml::Deserializer::from_str(&raw))
-                .wrap_err("Invalid YAML"),
+                .map_err(|e| eyre!(e)),
             "json" => {
                 serde_path_to_error::deserialize(&mut serde_json::Deserializer::from_str(&raw))
-                    .wrap_err("Invalid JSON")
+                    .map_err(|e| eyre!(e))
             }
             unsupported => Err(eyre!("Unsupported file type: {}", unsupported)),
         };
 
-        content
-            .map(File::Some)
-            .map_err(|e| cmd.clone().error(ErrorKind::InvalidValue, format!("{}", e)))
+        content.map_err(|e| {
+            cmd.clone().error(
+                ErrorKind::InvalidValue,
+                format!(
+                    "Failed to deserialize {} for {}: {}",
+                    value.to_str().unwrap(),
+                    arg.unwrap(),
+                    e
+                ),
+            )
+        })
     }
 }

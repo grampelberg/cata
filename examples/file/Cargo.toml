@@ -1,0 +1,12 @@
+[package]
+name = "file"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+async-trait.workspace = true
+cata = { version = "0.1.0", path = "../.." }
+clap.workspace = true
+eyre.workspace = true
+serde.workspace = true
+tokio.workspace = true

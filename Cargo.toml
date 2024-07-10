@@ -17,7 +17,7 @@ tokio = { version = "1.38.0", features = ["full"] }
 [dependencies]
 async-trait.workspace = true
 cata-derive = { path = "derive" }
-clap.workspace = true
+clap = { workspace = true }
 eyre.workspace = true
 futures = "0.3.30"
 mime_guess = "2.0.5"
@@ -28,4 +28,4 @@ serde_yaml = "0.9.34"
 tabled.workspace = true
 
 [workspace]
-members = ["derive", "examples/basic", "examples/output"]
+members = ["derive", "examples/basic", "examples/file", "examples/output"]

@@ -1,13 +1,14 @@
-#![deny(unused_crate_dependencies)]
+#![warn(unused_crate_dependencies)]
 
 pub mod command;
 pub mod file;
 pub mod output;
 
-pub use cata_derive::Container;
-pub use command::Command;
+pub use cata_derive::{Container, File};
 use eyre::Result;
 use futures::future::{BoxFuture, FutureExt};
+
+pub use crate::{command::Command, output::Format};
 
 /// Executes a command and all of its subcommands.
 ///
