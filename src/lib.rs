@@ -1,5 +1,3 @@
-#![warn(unused_crate_dependencies)]
-
 pub mod command;
 pub mod file;
 pub mod output;
