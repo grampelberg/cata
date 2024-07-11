@@ -13,6 +13,7 @@
 pub mod command;
 pub mod file;
 pub mod output;
+pub mod telemetry;
 
 pub use cata_derive::{Container, File};
 use eyre::Result;

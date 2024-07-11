@@ -13,7 +13,7 @@
 //!
 //! #[derive(clap::Parser, Container)]
 //! struct Cmd {
-//!   input: File<MyType>,
+//!   input: MyType,
 //! }
 //!
 //! #[derive(Clone, Debug, serde::Deserialize, File)]

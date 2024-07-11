@@ -10,8 +10,8 @@
 //!
 //! See [examples/basic] for a more detailed example.
 //!
-//! ```
-//! use cata::Container;
+//! ```should_panic
+//! use cata::{Command, Container};
 //! use clap::{Parser, Subcommand};
 //!
 //! #[derive(Parser, Container)]
@@ -24,16 +24,20 @@
 //! pub enum RootCmd {
 //!   Child(Child)
 //! }
+
+//! impl Command for Root {}
 //!
 //! #[derive(Parser, Container)]
 //! pub struct Child {}
 //!
-//! #[tokio:main]
-//! async fn main() -> Result<()> {
+//! impl Command for Child {}
+//!
+//! #[tokio::main]
+//! async fn main() -> eyre::Result<()> {
 //!   cata::execute(&Root::parse()).await
 //! }
 //! ```
-//!
+//! 
 //! [examples-file]: ../examples/basic/src/main.rs
 use eyre::Result;
 
