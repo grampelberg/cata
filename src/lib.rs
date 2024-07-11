@@ -9,7 +9,7 @@
 //!   files. Detects the file format from the extension and currently supports
 //!   JSON in addition to YAML.
 //! - [`output`]: structured output for commands. Users can choose the output
-//!   format they would like, currently supporting JSON, YAML and pretty.\
+//!   format they would like, currently supporting JSON, YAML and pretty.
 //! - [`telemetry`]: a simple way to track activity and errors for your CLI.
 pub mod command;
 pub mod file;

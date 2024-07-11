@@ -69,7 +69,7 @@ tracing-subscriber = { workspace = true, features = [
 uuid = { workspace = true }
 
 [workspace]
-members = ["derive", "examples/basic", "examples/file", "examples/output"]
+members = ["derive", "examples/basic", "examples/file", "examples/output", "examples/telemetry"]
 
 [lints]
 workspace = true
