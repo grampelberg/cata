@@ -1,7 +1,7 @@
 [package]
 name = "file"
 description = "file example of using cata"
-version.workspace = true
+version = "0.1.0"
 authors.workspace = true
 
 documentation.workspace = true

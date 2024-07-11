@@ -1,7 +1,7 @@
 [package]
 name = "basic"
 description = "basic example of using cata"
-version.workspace = true
+version = "0.1.0"
 authors.workspace = true
 
 documentation.workspace = true
@@ -16,5 +16,5 @@ async-trait.workspace = true
 cata = { path = "../.." }
 clap = { workspace = true, features = ["derive", "env"] }
 eyre.workspace = true
-lazy_static = "1.5.0"
+lazy_static = { workspace = true }
 tokio.workspace = true

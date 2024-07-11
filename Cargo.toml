@@ -27,27 +27,43 @@ eyre = "0.6.12"
 serde = { version = "1.0.204", features = ["derive"] }
 tabled = "0.15.0"
 tokio = { version = "1.38.0", features = ["full"] }
+futures = "0.3.30"
+lazy_static = "1.5.0"
+machine-uid = "0.5.2"
+mime_guess = "2.0.5"
+posthog-rs = "0.2.2"
+proc-macro2 = "1.0.86"
+quote = "1.0.36"
+ring = "0.17.8"
+serde_json = "1.0.120"
+serde_path_to_error = "0.1.16"
+serde_yaml = "0.9.34"
+syn = "2.0.70"
+tracing = "0.1.40"
+tracing-core = "0.1.32"
+tracing-subscriber = "0.3.18"
+uuid = "1.10.0"
 
 [dependencies]
 async-trait.workspace = true
 cata-derive = { path = "derive" }
 clap = { workspace = true }
 eyre.workspace = true
-futures = "0.3.30"
-machine-uid = "0.5.2"
-mime_guess = "2.0.5"
-posthog-rs = "0.2.2"
-ring = { version = "0.17.8", features = ["std"] }
+futures = { workspace = true }
+machine-uid = { workspace = true }
+mime_guess = { workspace = true }
+posthog-rs = { workspace = true }
+ring = { workspace = true, features = ["std"] }
 serde.workspace = true
-serde_json = "1.0.120"
-serde_path_to_error = "0.1.16"
-serde_yaml = "0.9.34"
+serde_json = { workspace = true }
+serde_path_to_error = { workspace = true }
+serde_yaml = { workspace = true }
 tabled.workspace = true
 tokio = { workspace = true, features = ["rt-multi-thread", "tracing"] }
-tracing = "0.1.40"
-tracing-core = "0.1.32"
-tracing-subscriber = { version = "0.3.18", features = ["env-filter", "registry"] }
-uuid = "1.10.0"
+tracing = { workspace = true }
+tracing-core = { workspace = true }
+tracing-subscriber = { workspace = true, features = ["env-filter", "registry"] }
+uuid = { workspace = true }
 
 [workspace]
 members = ["derive", "examples/basic", "examples/file", "examples/output"]
