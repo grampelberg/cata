@@ -1,7 +1,7 @@
 [package]
 name = "cata-derive"
 description = "procedural macros to derive traits for CLI construction"
-version = "0.1.0"
+version = "0.1.1"
 authors.workspace = true
 documentation.workspace = true
 license-file.workspace = true

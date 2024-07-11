@@ -11,7 +11,7 @@ keywords.workspace = true
 categories.workspace = true
 
 [workspace.package]
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Thomas Rampelberg <thomas@saunter.org>"]
 documentation = "https://docs.rs/cata"
 edition = "2021"
