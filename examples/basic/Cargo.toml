@@ -3,13 +3,14 @@ name = "basic"
 description = "basic example of using cata"
 version = "0.1.0"
 authors.workspace = true
-
 documentation.workspace = true
 license-file.workspace = true
 edition.workspace = true
 repository.workspace = true
 keywords.workspace = true
 categories.workspace = true
+publish = false
+
 
 [dependencies]
 async-trait.workspace = true
