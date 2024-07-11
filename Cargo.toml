@@ -65,11 +65,18 @@ tracing-subscriber = { workspace = true, features = [
     "matchers",
     "once_cell",
     "tracing",
+    "env-filter",
 ] }
 uuid = { workspace = true }
 
 [workspace]
-members = ["derive", "examples/basic", "examples/file", "examples/output", "examples/telemetry"]
+members = [
+    "derive",
+    "examples/basic",
+    "examples/file",
+    "examples/output",
+    "examples/telemetry",
+]
 
 [lints]
 workspace = true
