@@ -1,0 +1,6 @@
+[tools]
+"cargo:cargo-workspaces" = "latest"
+"cargo:cargo-binstall" = "latest"
+"cargo:cargo-autoinherit" = "latest"
+"npm:prettier" = "latest"
+"cargo:cargo-expand" = "latest"

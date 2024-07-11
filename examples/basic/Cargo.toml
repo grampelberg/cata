@@ -16,5 +16,4 @@ async-trait.workspace = true
 cata = { path = "../.." }
 clap = { workspace = true, features = ["derive", "env"] }
 eyre.workspace = true
-lazy_static = { workspace = true }
 tokio.workspace = true

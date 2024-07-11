@@ -28,7 +28,6 @@ serde = { version = "1.0.204", features = ["derive"] }
 tabled = "0.15.0"
 tokio = { version = "1.38.0", features = ["full"] }
 futures = "0.3.30"
-lazy_static = "1.5.0"
 machine-uid = "0.5.2"
 mime_guess = "2.0.5"
 posthog-rs = "0.2.2"
@@ -46,23 +45,27 @@ uuid = "1.10.0"
 
 [dependencies]
 async-trait.workspace = true
-cata-derive = { path = "derive" }
+cata-derive = { path = "derive", version = "0.1.0" }
 clap = { workspace = true }
 eyre.workspace = true
 futures = { workspace = true }
 machine-uid = { workspace = true }
 mime_guess = { workspace = true }
 posthog-rs = { workspace = true }
-ring = { workspace = true, features = ["std"] }
+ring = { workspace = true }
 serde.workspace = true
 serde_json = { workspace = true }
 serde_path_to_error = { workspace = true }
 serde_yaml = { workspace = true }
 tabled.workspace = true
-tokio = { workspace = true, features = ["rt-multi-thread", "tracing"] }
+tokio = { workspace = true }
 tracing = { workspace = true }
 tracing-core = { workspace = true }
-tracing-subscriber = { workspace = true, features = ["env-filter", "registry"] }
+tracing-subscriber = { workspace = true, features = [
+    "matchers",
+    "once_cell",
+    "tracing",
+] }
 uuid = { workspace = true }
 
 [workspace]
@@ -70,6 +73,10 @@ members = ["derive", "examples/basic", "examples/file", "examples/output"]
 
 [lints]
 workspace = true
+
+[profile.dev]
+debug = 0
+split-debuginfo = "unpacked"
 
 [workspace.lints.rust]
 missing_docs = "warn"
