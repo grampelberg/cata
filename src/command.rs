@@ -24,7 +24,6 @@
 //! pub enum RootCmd {
 //!   Child(Child)
 //! }
-
 //! impl Command for Root {}
 //!
 //! #[derive(Parser, Container)]
@@ -37,7 +36,7 @@
 //!   cata::execute(&Root::parse()).await
 //! }
 //! ```
-//! 
+//!
 //! [examples/basic]: https://github.com/grampelberg/cata/blob/main/examples/basic/src/main.rs
 use eyre::Result;
 

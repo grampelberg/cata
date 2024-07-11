@@ -1,6 +1,9 @@
 [tools]
-"cargo:cargo-workspaces" = "latest"
 "cargo:cargo-binstall" = "latest"
+"cargo:cargo-workspaces" = "latest"
 "cargo:cargo-autoinherit" = "latest"
-"npm:prettier" = "latest"
+"cargo:cargo-outdated" = "latest"
+"cargo:cargo-audit" = "latest"
 "cargo:cargo-expand" = "latest"
+"npm:prettier" = "latest"
+just = "latest"
