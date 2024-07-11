@@ -30,7 +30,7 @@
 //! }
 //! ```
 //!
-//! [examples/file]: ../examples/file/src/main.rs
+//! [examples/file]: https://github.com/grampelberg/cata/blob/main/examples/file/src/main.rs
 use clap::{builder::TypedValueParser, error::ErrorKind};
 use eyre::{eyre, Result};
 use serde::de::DeserializeOwned;

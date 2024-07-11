@@ -35,11 +35,7 @@
 //! }
 //! ```
 //!
-//!
-//! [`serde::Serialize`]: serde::Serialize
-//! [`tabled::Tabled`]: tabled::Tabled
-//! [`cata::output::tabled`]: cata::output::tabled
-//! [examples/output]: ../examples/output/src/main.rs
+//! [examples/output]: https://github.com/grampelberg/cata/blob/main/examples/output/src/main.rs
 pub mod tabled;
 
 use ::tabled::{Table, Tabled};

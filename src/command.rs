@@ -38,7 +38,7 @@
 //! }
 //! ```
 //! 
-//! [examples-file]: ../examples/basic/src/main.rs
+//! [examples/basic]: https://github.com/grampelberg/cata/blob/main/examples/basic/src/main.rs
 use eyre::Result;
 
 /// The base structure for commands.

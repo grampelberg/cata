@@ -100,7 +100,7 @@
 //! telemetry completes before the program exits and does not block normal
 //! program flow.
 //!
-//! [examples/telemetry]: ../examples/telemetry/src/main.rs
+//! [examples/telemetry]: https://github.com/grampelberg/cata/blob/main/examples/telemetry/src/main.rs
 pub mod posthog;
 
 use std::collections::HashMap;
