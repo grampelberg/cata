@@ -6,4 +6,5 @@
 "cargo:cargo-audit" = "latest"
 "cargo:cargo-expand" = "latest"
 "npm:prettier" = "latest"
+"npm:prettier-plugin-toml" = "latest"
 just = "latest"
